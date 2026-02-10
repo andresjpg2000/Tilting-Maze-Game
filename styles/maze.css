@@ -302,41 +302,80 @@ label {
   }
 }
 
+/* === Leaderboard Card Wrapper === */
 .leaderboard {
-  width: 100%;
-  max-width: 420px;
+  width: min(92vw, 360px);
   margin: 16px auto;
-  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+  background: #FF3366;
+  font-family: "Courier New", Courier, monospace;
+  border-radius: 12px 12px 6px 6px;
+  overflow: hidden;
+  color: white;
 }
 
-.leaderboard-header,
+/* === Header (Table Title Row) === */
+.leaderboard-header {
+  display: grid;
+  grid-template-columns: 48px 1fr 72px;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+  border-bottom: 1px solid rgb(167, 159, 159);
+}
+
+/* === Body === */
+.leaderboard-body {
+  max-height: min(45vh, 240px);
+  overflow-y: auto;
+  border-left: 1px solid rgb(203, 203, 203);
+  border-right: 1px solid rgb(203, 203, 203);
+  border-bottom: 1px solid rgb(203, 203, 203);
+}
+
+/* === Rows === */
 .leaderboard-row {
   display: grid;
   grid-template-columns: 48px 1fr 72px;
-  gap: 8px;
-  padding: 6px 10px;
-  align-items: center;
+  font-size: clamp(0.7rem, 2.3vw, 0.85rem);
 }
 
-.leaderboard-header {
-  font-weight: bold;
-  border-bottom: 2px solid rgba(255,255,255,0.3);
+/* === Cells === */
+.leaderboard-row span {
+  padding: 4px 8px;
+  background: white;
+  color: #FF3366;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.leaderboard-body {
-  max-height: 240px;
-  overflow-y: auto;
+/* Zebra striping */
+.leaderboard-row:nth-child(even) span {
+  background: rgb(234, 235, 234);
 }
 
-.leaderboard-row {
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+/* Column alignment */
+.leaderboard-row span:nth-child(1) {
+  text-align: center;
 }
 
-.leaderboard-row.me {
-  background: rgba(255, 215, 0, 0.15);
-  font-weight: bold;
-}
-
-.leaderboard-row span:last-child {
+.leaderboard-row span:nth-child(3) {
   text-align: right;
+}
+
+/* Column borders */
+.leaderboard-row span:nth-child(1),
+.leaderboard-header span:nth-child(1) {
+  border-right: 1px solid rgb(203, 203, 203);
+}
+
+.leaderboard-row span:nth-child(2),
+.leaderboard-header span:nth-child(2) {
+  border-right: 1px solid rgb(203, 203, 203);
+}
+
+/* === Highlight current user === */
+.leaderboard-row.me span {
+  background: #2EC4B6;
+  font-weight: bold;
 }
