@@ -27,6 +27,8 @@ This version focuses on correctness, maintainability, and extensibility rather t
 # How to Play
 Single Player (current version)
 
+https://tilted-maze-game.web.app
+
 A / D → Rotate the maze left or right
 
 ← / → Arrow Keys → Rotate the maze left or right
@@ -49,9 +51,9 @@ Planned improvements and features:
 
   - [x] Timer to measure completion time
 
-  - [ ] Leaderboard to compare best runs
+  - [x] Leaderboard to compare best runs
 
-  - [ ] Backend service for storing scores and matches
+  - [x] Backend service for storing scores and matches
 
   - [ ] Simple multiplayer mode (1v1)
 
