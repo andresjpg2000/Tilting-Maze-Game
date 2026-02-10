@@ -123,9 +123,10 @@ export class GameController {
     this.uiView.showModal();
     this.endGameLoop();
 
-    // loadLeaderboard(this.mazeModel.random).then((leaderboard) => {
-    //   this.uiView.updateLeaderboard(leaderboard);
-    // });
+    loadLeaderboard(this.mazeModel.seed).then((leaderboard) => {
+      this.uiView.updateLeaderboard(leaderboard);
+    });
+
   }
 
   start() {

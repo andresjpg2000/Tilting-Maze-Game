@@ -40,20 +40,62 @@ async function submitScore(seed, time) {
   }
 }
 
-async function loadLeaderboard(seed, limitCount = 10) {
-  const q = query(
-    collection(db, "leaderboards", seed, "runs"),
+async function loadLeaderboard(seed) {
+  const user = getCurrentUser();
+
+  // Top 10
+  const topQuery = query(
+    collection(db, "leaderboards", String(seed), "runs"),
     orderBy("time", "asc"),
-    limit(limitCount)
+    limit(10)
   );
 
-  const snapshot = await getDocs(q);
+  const topSnap = await getDocs(topQuery);
 
-  return snapshot.docs.map((doc, index) => ({
+  const top = topSnap.docs.map((doc, index) => ({
     rank: index + 1,
+    uid: doc.data().uid,
     username: doc.data().username,
     time: doc.data().time
   }));
+
+  if (!user) return top;
+
+  // If user already in top 10, done
+  if (top.some(e => e.uid === user.uid)) {
+    return top;
+  }
+
+  // Count how many runs are faster than the user's best
+  const userRunsQuery = query(
+    collection(db, "leaderboards", String(seed), "runs"),
+    where("uid", "==", user.uid),
+    orderBy("time", "asc"),
+    limit(1)
+  );
+
+  const userRunsSnap = await getDocs(userRunsQuery);
+  if (userRunsSnap.empty) return top;
+
+  const userBestTime = userRunsSnap.docs[0].data().time;
+
+  const rankQuery = query(
+    collection(db, "leaderboards", String(seed), "runs"),
+    where("time", "<", userBestTime)
+  );
+
+  const rankSnap = await getDocs(rankQuery);
+  const userRank = rankSnap.size + 1;
+
+  top.push({
+    rank: userRank,
+    uid: user.uid,
+    username: user.displayName || "You",
+    time: userBestTime,
+    isMe: true
+  });
+
+  return top;
 }
 
 export { submitScore, loadLeaderboard };
