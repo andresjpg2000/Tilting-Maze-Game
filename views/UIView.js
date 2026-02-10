@@ -32,6 +32,18 @@ export class UIView {
     }
   }
 
+  // TODO: Implement leaderboard UI
+  
+  // updateLeaderboard(leaderboard) {
+  //   const leaderboardList = document.querySelector("#leaderboardList");
+  //   leaderboardList.innerHTML = ""; // Clear existing entries
+  //   leaderboard.forEach((entry, index) => {
+  //     const listItem = document.createElement("li");
+  //     listItem.textContent = `${index + 1}. ${entry.name} - ${entry.time.toFixed(2)}s`;
+  //     leaderboardList.appendChild(listItem);
+  //   });
+  // }
+
   // attachModalClickOutside(callback) {
   //   window.addEventListener("click", (event) => {
   //     if (event.target === this.modal) {

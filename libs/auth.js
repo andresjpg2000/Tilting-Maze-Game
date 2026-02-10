@@ -20,3 +20,7 @@ export function logout() {
 export function onUserChanged(callback) {
   return onAuthStateChanged(auth, callback);
 }
+
+export function getCurrentUser() {
+  return auth.currentUser;
+}

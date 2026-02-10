@@ -5,6 +5,7 @@ import { CanvasView } from '../views/CanvasView.js';
 import { UIView } from '../views/UIView.js';
 import { PhysicsController } from './PhysicsController.js';
 import { InputController } from './InputController.js';
+import { submitScore, loadLeaderboard } from '../libs/db.js';
 
 export class GameController {
   constructor(canvas) {
@@ -101,6 +102,9 @@ export class GameController {
     if (this.gameState.hasWon) return;
     
     if (this.physicsController.isInTargetZone && this.timePlayed >= 2) {
+      this.gameState.markWon();
+      const time = Math.max(1, Math.floor(this.timePlayed));
+      submitScore(this.mazeModel.random, time);
       this.endGame();
     }
   }
@@ -113,12 +117,15 @@ export class GameController {
   }
 
   endGame() {
-    this.gameState.markWon();
     this.gameState.incrementWins();
     this.uiView.updateWinCounter(this.gameState.wins);
     this.isPlaying = false;
     this.uiView.showModal();
     this.endGameLoop();
+
+    // loadLeaderboard(this.mazeModel.random).then((leaderboard) => {
+    //   this.uiView.updateLeaderboard(leaderboard);
+    // });
   }
 
   start() {

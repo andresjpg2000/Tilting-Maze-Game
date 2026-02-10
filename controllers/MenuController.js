@@ -1,5 +1,4 @@
 import { loginWithGoogle, logout, onUserChanged } from "../libs/auth.js";
-import { setUser } from "../models/UserModel.js";
 import * as view from "../views/MenuView.js";
 
 view.bindLogin(async () => {
@@ -15,8 +14,6 @@ view.bindLogout(() => {
 });
 
 onUserChanged(user => {
-  setUser(user);
-
   if (user) {
     view.showLoggedIn(user);
   } else {
