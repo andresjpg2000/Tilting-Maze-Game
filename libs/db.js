@@ -13,8 +13,15 @@ import { getCurrentUser } from "./auth.js";
 
 async function submitScore(seed, time) {
   try {
+    if (!db) {
+      throw new Error("Firestore not initialized");
+    }
+
     const user = getCurrentUser();
-    if (!user) return;
+    if (!user) {
+      console.warn("No user logged in, score will not be submitted");
+      return;
+    }
 
     await addDoc(
       collection(db, "leaderboards", String(seed), "runs"),
