@@ -8,6 +8,7 @@ export class MazeModel {
     this.grid = [];
     this.stack = [];
     this.current = null;
+    this.seed = seed;
     this.random = this.mulberry32(seed);
   }
 

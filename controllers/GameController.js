@@ -104,7 +104,7 @@ export class GameController {
     if (this.physicsController.isInTargetZone && this.timePlayed >= 2) {
       this.gameState.markWon();
       const time = Math.max(1, Math.floor(this.timePlayed));
-      submitScore(this.mazeModel.random, time);
+      submitScore(this.mazeModel.seed, time);
       this.endGame();
     }
   }
